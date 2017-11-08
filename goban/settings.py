@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'gobanapp',
+    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -45,8 +47,10 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'goban.urls'
@@ -62,7 +66,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-            ],
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
+                    ],
         },
     },
 ]
@@ -118,3 +124,21 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+#To serve static files on heroku.com
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.facebook.FacebookOAuth2',
+    'django.contrib.auth.backends.ModelBackend'
+)
+
+LOGIN_REDIRECT_URL = '/'
+
+SOCIAL_AUTH_FACEBOOK_KEY = '1609309189113084'
+SOCIAL_AUTH_FACEBOOK_SECRET = '03744338922293379399714500730596'
+
+# Replace database setting to use postgresql on Heroku.com
+import dj-database-url
+db_from_env = dj_database_url.config()
+DATABASE['default'].update(db_from_env)

@@ -3,7 +3,15 @@
 }
 
 body {
-  padding-top: 0;
+  padding-top: 80px;
+}
+
+a {
+  color: #323232;
+}
+
+a: hover {
+  color: #0bb536;
 }
 
 #category a {
@@ -11,10 +19,18 @@ body {
 }
 
 #body {
-  margin-top: 10px;
   background-color: #f7f7f7;
+}
+
+#body .banner {
+  width: 100%;
+  margin-bottom: 20px;
 }
 
 #footer {
   padding: 20px 0;
+}
+
+.green {
+  color: #0bb536;
 }

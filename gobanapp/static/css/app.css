@@ -24,10 +24,6 @@ h1 {
   margin-bottom: 20px;
 }
 
-#footer {
-  padding: 20px 0;
-}
-
 .red {
   color: #d52525;
 }
@@ -131,4 +127,8 @@ input[type="text"]:focus,
   border-color: transparent;
   box-shadow: none;
   outline: 0 none;
+}
+
+.copyright {
+  padding: 0 0 20px 0;
 }

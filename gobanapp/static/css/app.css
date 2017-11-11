@@ -1,17 +1,13 @@
-.container {
-  width: 1100px;
-}
-
-body {
-  padding-top: 80px;
-}
-
 a {
   color: #323232;
 }
 
-a: hover {
-  color: #0bb536;
+a:hover {
+  color: #5cb85c;
+}
+
+h1 {
+  font-size: 2.5em;
 }
 
 #category a {
@@ -20,6 +16,7 @@ a: hover {
 
 #body {
   background-color: #f7f7f7;
+  margin-top: 55px;
 }
 
 #body .banner {
@@ -31,6 +28,107 @@ a: hover {
   padding: 20px 0;
 }
 
-.green {
-  color: #0bb536;
+.red {
+  color: #d52525;
+}
+
+.ordernow {
+  text-align: center;
+  font-size: 16px;
+  padding-top:5px;
+}
+
+.navbar-inverse {
+  background-color:  #d52525;
+}
+
+.navbar-brand {
+  height: auto;
+  padding:10px 0 0 15px;
+}
+
+.navbar-nav {
+  height: auto;
+  padding:5px 0;
+  display: inline-block;
+  float: none;
+  vertical-align: top;
+  font-weight: bold;
+}
+
+.navbar-collapse {
+  text-align: center;
+}
+
+.navbar-header {
+  height: auto;
+}
+
+.navbar-form, .navbar-right {
+  padding: 10px 0;
+}
+
+.navbar-left {
+  padding: 0 20px;
+}
+
+.navbar-toggle {
+  padding-top: 7px;
+  margin-right: 0;
+  border: none;
+  background: transparent !important;
+}
+
+.white, .white a {
+  color: #f7f7f7;
+}
+
+.white:hover {
+  color: #323232;
+}
+
+.white2, .white2 a {
+  color: #f7f7f7;
+}
+
+.white2:hover {
+  color: #323232;
+}
+
+.dropdown-toggle:active, .open .dropdown-toggle {
+  background: transparent !important; 
+  color: transparent !important;
+}
+
+.glyphicon-th-list, .glyphicon-option-vertical {
+  font-size: 20px;
+}
+
+.btn-success {
+  background-color: #323232;
+  border: 1px solid #323232;
+}
+
+.panel-fill {
+  background-color: #d52525;
+  color: #f7f7f7;
+}
+
+.divider2 {
+  height: 1px;
+  margin: 9px 0 9px 15px;
+  overflow: hidden;
+  background-color: #f7f7f7;
+}
+
+.dropdown-menu {
+  text-align: left;
+}
+
+textarea:focus,
+input[type="text"]:focus,
+.uneditable-input:focus {   
+  border-color: transparent;
+  box-shadow: none;
+  outline: 0 none;
 }

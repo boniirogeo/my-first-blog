@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block page %}
+  <h1 style="margin-bottom: 30px">My Jobs</h1>
+  <div class="panel panenl-default">
+    <table class="table table-bordered table-striped">
+      <thead class="bg-success">
+        <tr>
+          <th>
+            <th>Job Title</th>
+            <th>Price (Rp.)</th>
+            <th>Status</th>
+          </th>
+        </tr>
+      </thead>
+      <tbod>
+        {% for job in jobs %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td><a href="{% url 'edit_job' job.id %}">{{ job.title }}</a></td>
+          {% load humanize %}
+          <td>{{ job.price|intcomma }}</td>
+          <td>{% if job.status %} Active {% else %} Disabled {% endif %} </td>
+        </tr>
+        {% endfor %}
+      </tbod>
+    </table>
+  </div>
+{% endblock %}

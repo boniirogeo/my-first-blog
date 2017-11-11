@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block page %}
+  <h1 style="margin-bottom:30px">Daftar Pembelian</h1>
+  <div class="panel panel-default">
+    <table class="table table-bordered table-striped">
+      <thead class="bg-success">
+        <tr>
+          <th></th>
+          <th>Job Terbeli</th>
+          <th>Seller</th>
+          <th>Harga (Rp)</th>
+          <th>Tanggal</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for purchase in purchases %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td><a href="{% url 'job_detail' purchase.job.id %}">{{ purchase.job.title }}</a></td>
+          <td><a href="{% url 'profile' purchase.job.user.username %}">{{ purchase.job.user.username }}</a></td>
+          <td>{{ purchase.job.price }}</td>
+          <td>{{ purchase.time }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

@@ -6,34 +6,54 @@
   <div class="row">
     <div class="col-md-8">
       <div class="panel panel-default">
-        <div class="panel-body">
-          <h3>I will create your own website with Python</h3>
+        <div class="panel-heading">
+          <h1>{{ job.title }}</h1>
           <hr/>
-          <img src="{% static 'img/gig.png' %}" class="img-responsive center-block">
+          <img src="/media/{{ job.photo }}" class="img-responsive center-block">
         </div>
       </div>
       <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4>About This Job</h4>
+        <div class="panel-fill">
+          <div class="panel-heading">
+            <h4>About This Job</h4>
+          </div>
         </div>
         <div class="panel-body">
-          <p>I will create your website in just 2 days.</p>
+          <p>{{ job.description }}</p>
         </div>
       </div>
       <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4>Review</h4>
+        <div class="panel-fill">
+          <div class="panel-heading">
+            <h4>Review</h4>
+          </div>
         </div>
+        
+        {% if show_post_review %}
+          <div class="panel-body">
+            <form method="POST">
+              {% csrf_token %}
+              <div class="form-grou">
+                <textarea name="content" class="form-control"></textarea>
+              </div>
+              <div class="form-group">
+                <hr/>
+                <button type="submit" class="btn btn-success">Post</button>
+              </div>
+            </form>
+          </div>
+        {% endif %}
+        
         <ul class="list-group">
-          {% for i in '123' %}
+          {% for review in reviews %}
             <li class="list-group-item">
               <div class="row">
                 <div class="col-md-2">
-                  <img src="{% static 'img/avatar.png' %}" class="img-circle center-block" height="60" width="60">
+                  <img src="{{ review.user.profile.avatar }}" class="img-circle center-block" height="60" width="60">
                 </div>
                 <div class="col-md-10">
-                  <h5>Iron Man</h5>
-                  <p>Great job! This guy is awesome.</p>
+                  <h5><strong>{{ review.user.username }}</strong></h5>
+                  <p>{{ review.content }}</p>
                 </div>
               </div>
             </li>
@@ -44,15 +64,28 @@
     <div class="col-md-4">
       <div class="panel panel-default">
         <div class="panel-body">
-          <button type="button" class="btn btn-success btn-block">Order Sekarang</button>
-        </div>
+          
+      {% if user and not user.is_anonymous %}
+        <form method="POST" action="/checkout/">
+      {% csrf_token %}
+          <div id="payment-form"></div>
+          <input name="job_id" value="{{ job.id }}" hidden>
+          {% load humanize %}
+          <button type="submit" class="btn-lg btn-success btn-block"><span class="glyphicon glyphicon-shopping-cart white"></span>&nbsp; Order (Rp. {{ job.price|intcomma }})</button>
+        </form>
+
+      {% else %}
+        <p class="ordernow"><span class="glyphicon glyphicon-warning-sign"></span> Silahkan <a href="{% url 'social:begin' 'facebook' %}?next={{request.path}}"><u>login</u></a> untuk melakukan order!</p>
+      {% endif %}
+
+          </div>
       </div>
       <div class="panel panel-default">
         <div class="panel-body">
-          <img src="{% static 'img/avatar.png' %}" class="img-circle center-block" height="100" width="100">
-          <h4 class="text-center">Iron Man</h4>
+          <img src="{% if user.profile %} {{user.profile.avatar}} {% else %} {% static 'img/avatar.png' %} {% endif %}" class="img-circle center-block" height="100" width="100">&nbsp;
+          <a href="{% url 'profile' job.user.username %}"><h4 class="text-center">{{ job.user.username }}</h4></a>
           <hr/>
-          <p>I have 3 years of experience in Python and PHP. I am keren.</p>
+          <p>{{ job.user.profile.about }}</p>
         </div>
       </div>
     </div>

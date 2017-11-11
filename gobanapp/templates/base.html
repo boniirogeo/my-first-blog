@@ -3,63 +3,100 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Goban App</title>
-    <link rel="shortcut icon" href="{% static 'img/favicon.png' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Goban - Freelancers' Marketplace</title>
+    <link rel="shortcut icon" href="{% static 'img/favicon2.png' %}">
 
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/app.css' %}">
+    <link rel="stylesheet" href="{% static 'css/mobile.css' %}">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+
   </head>
   <body>
+  <div id="header">
     <nav class="navbar navbar-default navbar-fixed-top">
       <div class="navbar-inverse">
         <div class="container">
           <div class="navbar-header">
-            <a class="navbar-brand" href="/"><img src="{% static 'img/logo.png' %}" height="23"></a>
+            
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mainhead" aria-expanded="false">
+            <span class="glyphicon glyphicon-option-vertical white"></span>
+            </button>
+            
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#category" aria-expanded="false">
+            <span class="glyphicon glyphicon-th-list white"></span>
+            </button>
+            
+            <a class="navbar-brand" href="/"><img src="{% static 'img/goban.png' %}" height="35"></a>
           </div>
-          <form class="navbar-form navbar-left" role="search">
+          
+        <div class="collapse navbar-collapse" id="mainhead">
+          <form class="navbar-form navbar-left" role="search" method="GET" action="/search/">
             <div class="form-group">
-              <input type="text" class="form-control" placeholder="Find services">
+              <div class="input-group">
+                <input type="text" name="title" class="form-control" placeholder="Find services">
+              <span class="input-group-btn">
+                <button class="btn btn-success"><span class="glyphicon glyphicon-search"></span></button>
+              </span>
+              </div>
             </div>
-          </form>
-          <ul class="nav navbar-nav navbar-right">
-            {% if user and not user.is_anonymous %}
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                <img src="{% static 'img/avatar.png' %}" class="img-circle" height="22" width="22">
-                {{ user.get_full_name|default:user.username }} <span class="caret"></span>
-              </a>
-              <ul class="dropdown-menu">
-                <li><a href="{% url 'auth:logout' %}?next={{request.path}}">Logout</a></li>
-              </ul>
-            </li>
-            {% else %}
-            <li><a href="{% url 'social:begin' 'facebook' %}?next={{request.path}}">Login</a></li>
-            {% endif %}
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+              {% if user and not user.is_anonymous %}
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="fase">
+                    <img src="{% if user.profile %} {{ user.profile.avatar }} {% else %} {% static 'img/avatar.png' %} {% endif %}" class="img-circle" height="22" width="22">&nbsp;
+                    <span class="white">{{ user.get_full_name|default:user.username }} <span class="caret"></span></span>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a href="{% url 'create_job' %}"><span class="white2">Create a job</span></a></li>
+                    <li><a href="{% url 'my_jobs' %}"><span class="white2">My Jobs</span></a></li>
+                    <li role="separator" class="divider2"></li>
+                    <li><a href="{% url 'penjualan' %}"><span class="white2">Penjualan</span></a></li>
+                    <li><a href="{% url 'pembelian' %}"><span class="white2">Pembelian</span></a></li>
+                    <li role="separator" class="divider2"></li>
+                    <li><a href="{% url 'profile' user.username %}"><span class="white2">My Profile</span></a></li>
+                    <li role="separator" class="divider2"></li>
+                    <li><a href="{% url 'auth:logout' %}?next={{request.path}}"><span class="white2">Logout</span></a></span></li>
+                  </ul>
+                </li>
+              {% else %}
+                <li>
+                  <a href="{% url 'social:begin' 'facebook' %}?next={{request.path}}"><span class="white"><span class="glyphicon glyphicon-user"></span>&nbsp; Login with Facebook</span></a>
+                </li>
+              {% endif %}
+            </ul>
+          </div>
         </div>
       </div>
-      <div id="category">
-        <div class="container">
+                      
+    <div id="category" class="collapse navbar-collapse">
+      <div class="container">
           <ul class="nav navbar-nav">
-            <li><a href="#">Graphic & Design</a></li>
-            <li><a href="#">Digital Marketing</a></li>
-            <li><a href="#">Video & Animnation</a></li>
-            <li><a href="#">Music & Audio</a></li>
-            <li><a href="#">Programming & Tech</a></li>
+            <li><a href="/category/graphics-design">Graphics & Design</a></li>
+            <li><a href="/category/digital-marketing">Digital Marketing</a></li>
+            <li><a href="/category/video-animation">Videos</a></li>
+            <li><a href="/category/music-audio">Audio</a></li>
+            <li><a href="/category/programming-tech">Programming & Tech</a></li>
           </ul>
         </div>
       </div>
     </nav>
+  </div>
+  
     <div id="body">
       <div class="container">
         {% block page %}
         {% endblock %}
       </div>
     </div>
-
+    
     <footer id="footer">
+      <hr/>
       <div class="container">
         <span>Goban App &copy; 2017</span>
       </div>
